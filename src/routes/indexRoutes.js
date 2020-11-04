@@ -1,15 +1,21 @@
 const express = require('express')
 const router = express.Router()
-const userController = require('../controllers/usersController')
+const usersController = require('../controllers/usersController')
+const reservasController = require('../controllers/reservasController')
 
 router.get('/', (req, res, next) => res.send({ "response": "server works" }))
-router.get('/getUser', userController.getOneUser)
 
 
-router.post('/login', userController.login)
-router.post('/registry', userController.saveUser)
-router.post('/checkEmail', userController.checkEmail)
-router.post('/checkValidationCode', userController.checkValidationCode)
-router.post('/changePassword', userController.changePassword)
+// rutas de users
+router.post('/login', usersController.login)
+router.post('/registry', usersController.saveUser)
+router.post('/checkEmail', usersController.checkEmail)
+router.post('/checkValidationCode', usersController.checkValidationCode)
+router.post('/changePassword', usersController.changePassword)
+
+//rutas de reservas
+router.get('/getReservas', reservasController.getAllReservas)
+router.post('/newReserva', reservasController.saveReserva)
+router.post('/updateState', reservasController.updateState)
 
 module.exports = router

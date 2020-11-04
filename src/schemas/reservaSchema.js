@@ -22,6 +22,10 @@ const ReservaSchema = Schema({
         type: String,
         required: true
     },
+    state: {
+        type: String,
+        required: true
+    },
 })
 
 const reservas = mongoose.model("reserva", ReservaSchema)
