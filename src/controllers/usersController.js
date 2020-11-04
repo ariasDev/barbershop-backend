@@ -26,7 +26,7 @@ exports.getOneUser = async(req, res, next) => {
 
 exports.saveUser = async(req, res, next) => {
     try {
-        if (req.body.email && req.body.password && req.body.fullname) {
+        if (req.body.email && req.body.password && req.body.fullname && req.body.userType) {
             if (validateEmail(req.body.email)) {
                 let user = await usersService.getOneUser(req.body.email)
                 if (user.length !== 0) {
@@ -51,6 +51,7 @@ exports.saveUser = async(req, res, next) => {
                             "userName": req.body.fullname,
                             "userEmail": req.body.email,
                             "userAddres": userSaved.addres,
+                            "userType": userSaved.userType,
                             "token": token
                         }
                         res.status(201).json({

@@ -23,6 +23,11 @@ const UserSchema = Schema({
         type: String,
         required: true,
         default: 'Dfault'
+    },
+    userType: {
+        type: String,
+        required: true,
+        default: 'Dfault'
     }
 })
 
