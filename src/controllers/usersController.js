@@ -104,6 +104,7 @@ exports.login = async(req, res, next) => {
                             "userName": user[0].fullname,
                             "userEmail": req.body.email,
                             "userAddres": user[0].addres,
+                            "userType": user[0].userType,
                             "token": token
                         }
                         res.status(200)
