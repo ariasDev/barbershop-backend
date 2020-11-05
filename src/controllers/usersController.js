@@ -273,6 +273,44 @@ exports.changePassword = async(req, res, next) => {
     }
 }
 
+exports.updateUser = async(req, res, next) => {
+    try {
+        if (req.body.email && req.body.password && req.body.fullname) {
+            let user = await usersService.getOneUser(req.body.email)
+            if (user.length === 0) {
+                res.status(400)
+                    .json({
+                        "response": 'User are not registered',
+                        "error": "E2002",
+                        "errorDescription": "Usuario no registrado"
+                    })
+            } else {
+                req.body.password = await bcrypt.encryptPassword(req.body.password)
+                await usersService.updatePassWord({ "email": req.body.email }, { "password": req.body.password })
+                await usersService.saveVerificationCode({ "email": req.body.email }, { "verificationCode": 'Default' })
+                await usersService.updateUser({ "email": req.body.email }, { "fullname": req.body.fullname })
+                res.status(200)
+                    .json({
+                        "response": "Se actualizó el usuario",
+                    })
+
+            }
+        } else {
+            res.status(400).json({
+                "error": "E2024",
+                "errorDescription": "Faltan campos por diligenciar"
+            })
+        }
+
+    } catch (error) {
+        res.status(500)
+            .json({
+                "error": "E2020",
+                "errorDescription": "Error inesperado, estamos trabajando en ello"
+            })
+    }
+}
+
 const validateEmail = (email) => {
     return /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email)
 }

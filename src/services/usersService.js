@@ -44,6 +44,14 @@ exports.updatePassWord = (filter, update) => {
         .catch(reject => reject)
 }
 
+
+exports.updateUser = (filter, update) => {
+    return userSchema.findOneAndUpdate(filter, update)
+        .then(resolve => resolve)
+        .catch(reject => reject)
+}
+
+
 exports.saveVerificationCode = (filter, update) => {
     return userSchema.findOneAndUpdate(filter, update)
         .then(resolve => resolve)
