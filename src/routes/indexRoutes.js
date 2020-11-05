@@ -12,6 +12,7 @@ router.post('/registry', usersController.saveUser)
 router.post('/checkEmail', usersController.checkEmail)
 router.post('/checkValidationCode', usersController.checkValidationCode)
 router.post('/changePassword', usersController.changePassword)
+router.get('/getUser', usersController.getOneUser)
 
 //rutas de reservas
 router.get('/getReservas', reservasController.getAllReservas)
