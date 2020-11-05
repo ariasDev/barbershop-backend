@@ -275,7 +275,7 @@ exports.changePassword = async(req, res, next) => {
 
 exports.updateUser = async(req, res, next) => {
     try {
-        if (req.body.email && req.body.password && req.body.fullname) {
+        if (req.body.email && req.body.fullname) {
             let user = await usersService.getOneUser(req.body.email)
             if (user.length === 0) {
                 res.status(400)
@@ -286,8 +286,6 @@ exports.updateUser = async(req, res, next) => {
                     })
             } else {
                 req.body.password = await bcrypt.encryptPassword(req.body.password)
-                await usersService.updatePassWord({ "email": req.body.email }, { "password": req.body.password })
-                await usersService.saveVerificationCode({ "email": req.body.email }, { "verificationCode": 'Default' })
                 await usersService.updateUser({ "email": req.body.email }, { "fullname": req.body.fullname })
                 res.status(200)
                     .json({
